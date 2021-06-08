@@ -1,38 +1,24 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import Search from './components/search'
+import List from './components/List'
 
 export default class App extends Component {
-    getStudentData=()=>{
-        axios.get('http://localhost:3000/api1/students').then{
-            response=>{
-                console.log(response.data);
-
-            },
-            error=>{
-                console.log(error);
-
-            }
-        }
-
+    state={
+        users:[],
+        isFirst:true,
+        isLoading:false,
+        err:''
     }
-    getCarData=()=>{
-        axios.get('http://localhost:3000/api2/cars').then{
-            response=>{
-                console.log(response.data);
-
-            },
-            error=>{
-                console.log(error);
-
-            }
-        }
-
+    updateAppState=(stateObj)=>{
+        this.setState(stateObj)
     }
     render() {
+        // const {users,isFirst,isLoading,err}=this.state
         return (
             <div>
-               <button onClick={this.getStudentData}>Student Data</button>
-
+                <Search updateAppState={this.updateAppState}/>
+                <List {...this.state}/>
+                
             </div>
         )
     }
